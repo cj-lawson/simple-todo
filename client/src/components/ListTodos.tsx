@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
 import TodoItem from "./TodoItem";
 import { CompletedTodoItem } from "./TodoItem";
-// import {useTodoStore} from '../store/todoStore.js'
+import useTodoStore from "../store/useTodoStore";
 
 interface Todo {
   todo_id: number;
@@ -18,6 +18,9 @@ const ListTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
   const [incompleteTodos, setIncompleteTodos] = useState<Todo[]>([]);
+
+  //Zustant store
+  const { setCompleteTodoCount } = useTodoStore();
 
   const getTodos = async () => {
     try {
@@ -68,6 +71,7 @@ const ListTodos = () => {
 
     setCompletedTodos(completed);
     setIncompleteTodos(incomplete);
+    setCompleteTodoCount(completed.length);
   }, [todos]);
 
   // console.log(todos);
