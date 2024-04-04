@@ -34,10 +34,10 @@ const InputTodo = () => {
           <input
             autoFocus
             type="text"
-            placeholder="Type and press Enter to create a task..."
+            placeholder="Type to create a task..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="block w-full bg-transparent py-1.5 py-4 pl-4 text-gray-200 shadow-sm  placeholder:text-placeholder-gray hover:cursor-pointer focus:placeholder-opacity-0 focus:outline-none focus:ring-0 sm:text-sm sm:leading-6"
+            className="block w-full bg-transparent py-1.5 py-4 pl-4 text-gray-200 shadow-sm placeholder:text-xs placeholder:text-placeholder-gray hover:cursor-pointer focus:placeholder-opacity-0 focus:outline-none focus:ring-0 sm:text-sm sm:leading-6 md:placeholder:text-base"
           />
           <span
             className={

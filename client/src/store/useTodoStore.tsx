@@ -5,6 +5,7 @@ type Store = {
   incompleteTodoCount: number;
   setCompleteTodoCount: (count: number) => void;
   incrementCompleteCount: () => void;
+  setIncompleteTodoCount: (count: number) => void;
 };
 
 const useTodoStore = create<Store>((set) => ({
@@ -13,6 +14,8 @@ const useTodoStore = create<Store>((set) => ({
   setCompleteTodoCount: (count: number) => set({ completeTodoCount: count }),
   incrementCompleteCount: () =>
     set((state: any) => ({ completeTodoCount: state.completeTodoCount + 1 })),
+  setIncompleteTodoCount: (count: number) =>
+    set({ incompleteTodoCount: count }),
 }));
 
 export default useTodoStore;

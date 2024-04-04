@@ -20,7 +20,12 @@ const ListTodos = () => {
   const [incompleteTodos, setIncompleteTodos] = useState<Todo[]>([]);
 
   //Zustant store
-  const { setCompleteTodoCount } = useTodoStore();
+  const {
+    setCompleteTodoCount,
+    setIncompleteTodoCount,
+    completeTodoCount,
+    incompleteTodoCount,
+  } = useTodoStore();
 
   const getTodos = async () => {
     try {
@@ -72,6 +77,7 @@ const ListTodos = () => {
     setCompletedTodos(completed);
     setIncompleteTodos(incomplete);
     setCompleteTodoCount(completed.length);
+    setIncompleteTodoCount(incomplete.length);
   }, [todos]);
 
   // console.log(todos);
@@ -83,13 +89,16 @@ const ListTodos = () => {
           <Tab
             className={({ selected }) =>
               classNames(
-                "text-sm font-medium",
+                "flex items-center text-sm font-medium",
                 "focus:outline-none ",
                 selected ? "text-white" : "text-[#a0a0a0] hover:text-white"
               )
             }
           >
-            My Tasks
+            Open tasks{" "}
+            <div className="ml-2 flex h-5 w-5 shrink-0 grow-0 items-center justify-center rounded-full bg-[#252628] text-xs text-[#A2A0A2]">
+              {incompleteTodoCount}
+            </div>
           </Tab>
           <Tab
             className={({ selected }) =>
