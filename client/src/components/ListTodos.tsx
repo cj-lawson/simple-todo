@@ -112,6 +112,7 @@ const ListTodos = () => {
             Completed
           </Tab>
         </Tab.List>
+
         <Tab.Panel className="incomplete-todos">
           <ul className="space-y-2">
             {incompleteTodos.map((todo) => (

@@ -24,26 +24,26 @@ const InputTodo = () => {
   };
 
   return (
-    <div className="w-full px-3 ">
+    <div className="w-full px-3">
       <form
         action=""
         onSubmit={onFormSubmit}
         className="items-centered flex space-x-6"
       >
-        <div className="group relative w-full rounded-2xl border border-gray-light px-4 ring-1 ring-inset ring-[#292929]">
+        <div className="group relative w-full rounded-lg border border-gray-light px-4 ring-1 ring-inset ring-[#292929]">
           <input
             autoFocus
             type="text"
             placeholder="Type to create a task..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="block w-full bg-transparent py-1.5 py-4 pl-4 text-gray-200 shadow-sm placeholder:text-xs placeholder:text-placeholder-gray hover:cursor-pointer focus:placeholder-opacity-0 focus:outline-none focus:ring-0 sm:text-sm sm:leading-6 md:placeholder:text-base"
+            className="block w-full bg-transparent py-1.5 py-2.5 pl-4 text-gray-200 shadow-sm placeholder:text-xs placeholder:text-placeholder-gray hover:cursor-pointer focus:placeholder-opacity-0 focus:outline-none focus:ring-0 sm:text-sm sm:leading-6 md:placeholder:text-base"
           />
           <span
             className={
               description === ""
-                ? "absolute inset-y-0 right-2 my-auto flex h-8 w-8 items-center rounded-lg bg-gray-light transition delay-100 ease-in-out"
-                : "absolute inset-y-0 right-2 my-auto flex h-8 w-8 items-center rounded-lg bg-white transition delay-100 ease-in-out"
+                ? "absolute inset-y-0 right-2 my-auto flex h-7 w-7 items-center rounded-md bg-gray-light transition delay-100 ease-in-out"
+                : "absolute inset-y-0 right-2 my-auto flex h-7 w-7 items-center rounded-md bg-primary-white transition delay-100 ease-in-out"
             }
           >
             <svg

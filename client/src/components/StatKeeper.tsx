@@ -10,7 +10,7 @@ export default function StatKeeper() {
   return (
     <div className="flex flex-col items-center justify-center space-y-4">
       {date}
-      <div className="flex h-full flex-row items-center divide-x divide-solid divide-[#A2A0A2] rounded-full bg-[#252628] px-8 py-4 text-[#A2A0A2]">
+      <div className="flex h-full flex-row items-center divide-x divide-solid divide-[#A2A0A2] rounded-full bg-[#252628] px-8 py-3.5 text-[#A2A0A2]">
         {/* <div className="px-2.5 text-xs sm:text-base md:px-6">
           <h1>{incompleteTodoCount} open tasks</h1>
         </div> */}
