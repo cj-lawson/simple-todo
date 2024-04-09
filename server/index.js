@@ -1,8 +1,10 @@
-const express = require("express");
+import express from "express";
+import cors from "cors";
+import pool from "./db.js";
+
 const app = express();
-const cors = require("cors");
+
 const port = 5000;
-const pool = require("./db");
 
 app.use(cors());
 app.use(express.json());

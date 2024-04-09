@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <div className="flex w-full items-center justify-between bg-primary-dark">
+    <div className="flex w-full items-center justify-between">
       <div className="flex items-center space-x-2">
         <span className="">
           <svg
@@ -29,11 +29,13 @@ export default function Navbar() {
             />
           </svg>
         </span>
-        <span className="text-white">Taskly</span>
+        <span className="text-white">Simple Todo</span>
       </div>
       <div className="space-x-6">
-        <span className="text-[#707070]">Sign up</span>
-        <span className="text-[#707070]">Log in</span>
+        <span className="rounded-full border border-gray-light bg-[#191918] p-1.5 px-3 text-sm text-primary-white">
+          Sign up
+        </span>
+        <span className="p-1.5 text-sm text-[#707070]">Login</span>
       </div>
     </div>
   );

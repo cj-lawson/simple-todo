@@ -30,7 +30,7 @@ const InputTodo = () => {
         onSubmit={onFormSubmit}
         className="items-centered flex space-x-6"
       >
-        <div className="group relative w-full rounded-lg border border-gray-light px-4 ring-1 ring-inset ring-[#292929]">
+        <div className="group relative w-full rounded-lg border border-gray-light bg-[#1c1c1c] px-4 ring-1 ring-inset ring-[#292929]">
           <input
             autoFocus
             type="text"

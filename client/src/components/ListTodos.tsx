@@ -19,7 +19,7 @@ const ListTodos = () => {
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
   const [incompleteTodos, setIncompleteTodos] = useState<Todo[]>([]);
 
-  //Zustant store
+  //Zustand store
   const {
     setCompleteTodoCount,
     setIncompleteTodoCount,

@@ -7,23 +7,29 @@ interface TodoProps {
   completed: boolean;
   deleteTodo: (id: number) => void;
   completeTodo: (id: number, description: string) => void;
+  key: number;
 }
 
 interface CompletedTodoProps {
   id: number;
   description: string;
   deleteTodo: (id: number) => void;
+  key: number;
 }
 
 export default function TodoItem({
   description,
   id,
   completed,
+  key,
   deleteTodo,
   completeTodo,
 }: TodoProps) {
   return (
-    <li className="group flex items-center justify-center justify-between rounded-lg px-3 hover:cursor-pointer hover:bg-[#282828]">
+    <li
+      key={key}
+      className="group flex items-center justify-center justify-between rounded-lg px-3 hover:cursor-pointer hover:bg-[#282828]"
+    >
       <div className="flex w-full items-center justify-between py-2">
         <div className="mr-2" onClick={() => completeTodo(id, description)}>
           <CheckCircleIcon className="h-[24px] w-[24px] text-secondary-white hover:text-emerald-500" />
