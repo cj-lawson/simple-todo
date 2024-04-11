@@ -1,11 +1,15 @@
-const Home = () => {
+import { useRouteError } from "react-router-dom";
+
+export default function ErrorPage() {
+  const error: any = useRouteError();
+  console.log(error);
+
   return (
-    <div className="min-h-screen w-screen bg-[#1c1c1c]">
-      <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
-        <div className="container flex w-5/6 max-w-[590px] flex-col space-y-12 md:w-3/5">
-          {/* header */}
-          <div className="mb-20 flex items-center justify-between space-x-2">
-            <a href="/">
+    <>
+      <div id="error-page" className="min-h-screen w-screen bg-[#1c1c1c]">
+        <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
+          <div className="container flex w-5/6 max-w-[590px] flex-col space-y-12 md:w-3/5">
+            <div className="mb-20 flex items-center justify-between space-x-2">
               <svg
                 width="94"
                 height="93"
@@ -23,42 +27,28 @@ const Home = () => {
                   fill="#EDEDED"
                 />
               </svg>
-            </a>
-
-            <span className="p-1.5 text-sm text-[#707070]">Login</span>
-          </div>
-          {/* Hero */}
-          <div className="mb-20 mt-20 space-y-8 text-primary-white">
-            <div>
-              <h3 className="mb-2 text-lg">Simple Todo</h3>
-              <p className="leading-loose text-[#a0a0a0]">
-                A simple todo app for creating todos, editing them, and of
-                course deleting them. Built to be simple, minimal, and void of
-                fancy features. For those, go use <u>complicated todo</u>. By
-                the way, this app only comes in dark mode. If you are hard of
-                seeing, press ⌘ + a few times. If you're on windows, idk what to
-                tell you.
-              </p>
             </div>
-            <div className="mt-4 space-x-6">
-              <a
-                href={`/register`}
-                className="cursor-pointer rounded-full border border-[#3e3e3e] bg-[#2e2e2e] p-2 px-3 text-sm text-primary-white"
-              >
-                Signup
-              </a>
-              <a
-                href={`/login`}
-                className="cursor-pointer p-1.5 text-sm text-[#707070]"
-              >
-                Login
-              </a>
+            {/* Hero */}
+            <div className="mb-20 mt-20 space-y-8 text-primary-white">
+              <div>
+                <h3 className="mb-2 text-lg">Whoops...</h3>
+                <p className="leading-loose text-[#a0a0a0]">
+                  This is a 404 error. That means this page doesn't exist. This
+                  is my fault, not yours. Let's not tell anyone about this.
+                </p>
+              </div>
+              <div className="mt-4 space-x-6">
+                <a
+                  href={`/`}
+                  className="cursor-pointer rounded-full border border-[#3e3e3e] bg-[#2e2e2e] p-2 px-3 text-sm text-primary-white"
+                >
+                  Go back home
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
-};
-
-export default Home;
+}

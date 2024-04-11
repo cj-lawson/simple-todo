@@ -1,14 +1,13 @@
-/* eslint-disable react/no-unescaped-entities */
-import * as React from "react";
+import TodoApp from "../components/TodoApp";
 
-export default function App() {
+const Todo = () => {
   return (
-    <>
-      <div className="min-h-screen w-screen bg-[#1c1c1c]">
-        <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
-          <div className="container flex w-5/6 max-w-[590px] flex-col space-y-12 md:w-3/5">
-            {/* header */}
-            <div className="mb-20 flex items-center justify-between space-x-2">
+    <div className="min-h-screen w-screen bg-[#1c1c1c]">
+      <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
+        <div className="container flex w-5/6 max-w-[590px] flex-col space-y-12 md:w-3/5">
+          {/* header */}
+          <div className="mb-20 flex items-center justify-between space-x-2">
+            <a href="/">
               <svg
                 width="94"
                 height="93"
@@ -26,33 +25,16 @@ export default function App() {
                   fill="#EDEDED"
                 />
               </svg>
-              <span className="p-1.5 text-sm text-[#707070]">Login</span>
-            </div>
-            {/* Hero */}
-            <div className="mb-20 mt-20 space-y-8 text-primary-white">
-              <div>
-                <h3 className="mb-2 text-lg">Simple Todo</h3>
-                <p className="leading-loose text-[#a0a0a0]">
-                  A simple todo app for creating todos, editing them, and of
-                  course deleting them. Built to be simple, minimal, and void of
-                  fancy features. For those, go use <u>complicated todo</u>. By
-                  the way, this app only comes in dark mode. If you are hard of
-                  seeing, press ⌘ + a few times. If you're on windows, idk what
-                  to tell you.
-                </p>
-              </div>
-              <div className="mt-4 space-x-6">
-                <span className="cursor-pointer rounded-full border border-[#3e3e3e] bg-[#2e2e2e] p-2 px-3 text-sm text-primary-white">
-                  Sign up
-                </span>
-                <span className="cursor-pointer p-1.5 text-sm text-[#707070]">
-                  Login
-                </span>
-              </div>
-            </div>
+            </a>
+
+            <span className="p-1.5 text-sm text-[#707070]">Sign out</span>
           </div>
+          {/* Hero */}
+          <TodoApp />
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default Todo;

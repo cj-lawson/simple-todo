@@ -1,13 +1,21 @@
 import express from "express";
 import cors from "cors";
 import pool from "./db.js";
+import jwtAuthRouter from "./routes/jwtAuth.js";
+import todoRouter from "./routes/todo.js";
 
 const app = express();
-
 const port = 5000;
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+
+// ROUTES
+
+// register and login routes
+app.use("/auth", jwtAuthRouter);
+
+app.use("/todo", todoRouter);
 
 // Get all Todos
 app.get("/todos", async (req, res) => {
