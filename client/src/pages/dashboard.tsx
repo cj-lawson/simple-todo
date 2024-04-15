@@ -1,6 +1,6 @@
 import TodoApp from "../components/TodoApp";
 
-const Todo = () => {
+const Dashboard = () => {
   return (
     <div className="min-h-screen w-screen bg-[#1c1c1c]">
       <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
@@ -37,4 +37,4 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default Dashboard;

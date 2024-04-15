@@ -9,13 +9,6 @@ CREATE TABLE users(
     user_password VARCHAR(255) NOT NULL,
 );
 
-
-CREATE TABLE users(
-    user_name VARCHAR(255) NOT NULL,
-    user_email VARCHAR(255) NOT NULL UNIQUE,
-    user_password VARCHAR(255) NOT NULL,
-);
-
 CREATE TABLE todo(
     todo_id SERIAL PRIMARY KEY,
     user_id UUID,
@@ -27,3 +20,12 @@ CREATE TABLE todo(
 -- Insert fake users
 
 INSERT INTO users(user_name, user_email, user_password) VALUES('spicyBeefPho', 'lawsoncj3@gmail.com', 'dietcoke96');
+
+-- fake todo data
+INSERT INTO todo(user_id, description) VALUES('7e5bc6fb-b2db-47d5-84ee-cec3a1eacf88', 'Take Andy for a walk')
+
+-- join data 
+select * from users INNER JOIN todo ON users.user_id = todo.user_id
+
+-- join data even if empty 
+select * from users LEFT JOIN todo ON users.user_id = todo.user_id

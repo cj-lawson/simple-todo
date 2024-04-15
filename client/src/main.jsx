@@ -8,7 +8,7 @@ import Home from "./pages/home";
 import ErrorPage from "./pages/error";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
-import Todo from "./pages/todo";
+import Dashboard from "./pages/dashboard";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/todo",
-    element: <Todo />,
+    path: "/dashboard",
+    element: <Dashboard />,
   },
 ]);
 
