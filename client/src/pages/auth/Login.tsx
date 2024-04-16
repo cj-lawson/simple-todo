@@ -26,12 +26,9 @@ const Login = () => {
       const parseRes = await response.json();
 
       if (parseRes.token) {
-        // localStorage.setItem("token", JSON.stringify(parseRes.token));
-        // setAuth(true);
         setToken(parseRes.token);
         navigate("/", { replace: true });
       } else {
-        // setAuth(false);
         console.log("something went wrong");
       }
     } catch (err: any) {

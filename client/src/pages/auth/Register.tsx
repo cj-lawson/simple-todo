@@ -1,4 +1,46 @@
+import { useState } from "react";
+import { useAuth } from "../../provider/authProvider";
+import { Link, useNavigate } from "react-router-dom";
+
 const Register = () => {
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+
+  const { email, name, password } = inputs;
+
+  const onChange = (e: any) =>
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+
+  const onFormSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      const body = { email, password, name };
+      const response = await fetch("http://localhost:5000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const parseRes = await response.json();
+
+      if (parseRes.token) {
+        setToken(parseRes.token);
+        navigate("/", { replace: true });
+      } else {
+        console.log("something went wrong");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div className="min-h-screen w-screen bg-[#1c1c1c]">
       <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
@@ -38,7 +80,7 @@ const Register = () => {
             </div>
 
             <div className="mt-4 space-x-6">
-              <form className="space-y-4" action="#">
+              <form onSubmit={onFormSubmit} className="space-y-4">
                 <div>
                   <label
                     htmlFor="email"
@@ -50,9 +92,9 @@ const Register = () => {
                     <input
                       id="email"
                       name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
+                      type="text"
+                      value={email}
+                      onChange={(e) => onChange(e)}
                       className="block w-full rounded-md border-0 bg-transparent py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -67,10 +109,11 @@ const Register = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      id="username"
-                      name="username"
-                      type="username"
-                      required
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={name}
+                      onChange={(e) => onChange(e)}
                       className="block w-full rounded-md border-0 bg-transparent py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -90,8 +133,8 @@ const Register = () => {
                       id="password"
                       name="password"
                       type="password"
-                      autoComplete="current-password"
-                      required
+                      value={password}
+                      onChange={(e) => onChange(e)}
                       className="block w-full rounded-md border-0 bg-transparent py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
                   </div>
