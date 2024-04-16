@@ -1,6 +1,62 @@
-import TodoApp from "../components/TodoApp";
+// import TodoApp from "../dashboard/todoList.tsx/TodoApp";
+import { useNavigate, Outlet } from "react-router-dom";
+import { useAuth } from "../../provider/authProvider";
+import { useState, useEffect } from "react";
+
+interface Todo {
+  user_name: string;
+  todo_id: number;
+  description: string;
+  completed: boolean;
+}
 
 const Dashboard = () => {
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [allTodos, setAllTodos] = useState<Todo[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  console.log(allTodos);
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/dashboard/", {
+          method: "GET",
+          headers: { jwt_Token: localStorage.token },
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const parseData = await res.json();
+
+        setAllTodos(parseData);
+        setName(parseData[0]?.user_name || ""); // Set name from first todo user_name
+      } catch (err: any) {
+        console.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getProfile();
+  }, []);
+
+  const logout = async (e: any) => {
+    e.preventDefault();
+    try {
+      localStorage.removeItem("token");
+      setToken("");
+      navigate("/home", { replace: true });
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div className="min-h-screen w-screen bg-[#1c1c1c]">
       <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
@@ -27,10 +83,29 @@ const Dashboard = () => {
               </svg>
             </a>
 
-            <span className="p-1.5 text-sm text-[#707070]">Sign out</span>
+            <button
+              onClick={(e) => logout(e)}
+              className="p-1.5 text-sm text-[#707070]"
+            >
+              Logout
+            </button>
           </div>
           {/* Hero */}
-          <TodoApp />
+          {/* <TodoApp /> */}
+          <h1 className="text-white">{`hey ${name}`}</h1>
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <>
+              <ul className="space-y-2">
+                {allTodos.map((todo: any) => (
+                  <div>
+                    <li key={todo.todo_id}>{todo.description}</li>
+                  </div>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
     </div>

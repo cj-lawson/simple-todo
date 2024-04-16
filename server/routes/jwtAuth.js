@@ -81,7 +81,7 @@ router.post("/login", validInfo, async (req, res) => {
   }
 });
 
-router.get("/is-verify", authorize, async (req, res) => {
+router.get("/verify", authorize, async (req, res) => {
   try {
     res.json(true);
   } catch (err) {

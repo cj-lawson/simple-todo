@@ -1,6 +1,6 @@
-import useDateTime from "../hooks/useDateTime";
+import useDateTime from "../../../hooks/useDateTime";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import useTodoStore from "../store/useTodoStore";
+import useTodoStore from "../../../store/useTodoStore";
 
 export default function StatKeeper() {
   const { completeTodoCount } = useTodoStore();

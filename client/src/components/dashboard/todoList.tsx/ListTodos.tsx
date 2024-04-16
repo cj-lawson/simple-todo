@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
 import TodoItem from "./TodoItem";
 import { CompletedTodoItem } from "./TodoItem";
-import useTodoStore from "../store/useTodoStore";
+import useTodoStore from "../../../store/useTodoStore";
 
 interface Todo {
   todo_id: number;

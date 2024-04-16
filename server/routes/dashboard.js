@@ -60,7 +60,7 @@ router.delete("/todos/:id", authorize, async (req, res) => {
   try {
     const { id } = req.params;
     const deleteTodo = await pool.query(
-      "DELETE FROM todos WHERE todo_id = $1 AND user_id = $2 RETURNING *",
+      "DELETE FROM todo WHERE todo_id = $1 AND user_id = $2 RETURNING *",
       [id, req.user.id]
     );
 

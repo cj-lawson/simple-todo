@@ -1,4 +1,6 @@
-const Home = () => {
+import { Link } from "react-router-dom";
+
+const Landing = (props: any) => {
   return (
     <div className="min-h-screen w-screen bg-[#1c1c1c]">
       <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
@@ -47,12 +49,12 @@ const Home = () => {
               >
                 Signup
               </a>
-              <a
-                href={`/login`}
+              <Link
+                to="/login"
                 className="cursor-pointer p-1.5 text-sm text-[#707070]"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -61,4 +63,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;

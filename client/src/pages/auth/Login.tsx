@@ -1,4 +1,44 @@
+import { useState } from "react";
+import { useAuth } from "../../provider/authProvider";
+import { Link, useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({ email: "", password: "" });
+  const { email, password } = inputs;
+
+  const onChange = (e: any) =>
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+
+  const onFormSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      const body = { email, password };
+      const response = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const parseRes = await response.json();
+
+      if (parseRes.token) {
+        // localStorage.setItem("token", JSON.stringify(parseRes.token));
+        // setAuth(true);
+        setToken(parseRes.token);
+        navigate("/", { replace: true });
+      } else {
+        // setAuth(false);
+        console.log("something went wrong");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div className="min-h-screen w-screen bg-[#1c1c1c]">
       <div className="flex h-screen w-screen justify-center pt-10 text-primary-white">
@@ -38,7 +78,7 @@ const Login = () => {
             </div>
 
             <div className="mt-4 space-x-6">
-              <form className="space-y-4" action="#">
+              <form onSubmit={onFormSubmit} className="space-y-4">
                 <div>
                   <label
                     htmlFor="email"
@@ -48,11 +88,12 @@ const Login = () => {
                   </label>
                   <div className="mt-2">
                     <input
+                      type="text"
                       id="email"
                       name="email"
-                      type="email"
-                      autoComplete="email"
                       required
+                      value={email}
+                      onChange={(e) => onChange(e)}
                       className="block w-full rounded-md border-0 bg-transparent py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -69,11 +110,11 @@ const Login = () => {
                   </div>
                   <div className="mt-2">
                     <input
+                      type="text"
                       id="password"
                       name="password"
-                      type="password"
-                      autoComplete="current-password"
                       required
+                      onChange={(e) => onChange(e)}
                       className="block w-full rounded-md border-0 bg-transparent py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                     />
                   </div>
