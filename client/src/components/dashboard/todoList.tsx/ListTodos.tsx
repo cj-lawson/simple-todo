@@ -68,10 +68,6 @@ const ListTodos = ({ todoList }: any) => {
     }
   };
 
-  // useEffect(() => {
-  //   getTodos();
-  // }, []);
-
   useEffect(() => {
     setTodos(todoList);
   }, [todoList]);
