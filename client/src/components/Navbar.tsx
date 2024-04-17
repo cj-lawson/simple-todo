@@ -1,41 +1,139 @@
-export default function Navbar() {
+import { Fragment } from "react";
+import { useState } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
+import { useAuth } from "../provider/authProvider";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  ArchiveBoxIcon,
+  ArrowRightCircleIcon,
+  ChevronDownIcon,
+  DocumentDuplicateIcon,
+  HeartIcon,
+  PencilSquareIcon,
+  TrashIcon,
+  UserPlusIcon,
+} from "@heroicons/react/20/solid";
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export default function Navbar({ name }: any) {
+  const [name_, setName] = useState(name);
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
+
+  const logout = async (e: any) => {
+    e.preventDefault();
+    try {
+      localStorage.removeItem("token");
+      setToken("");
+      navigate("/home", { replace: true });
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div className="flex w-full items-center justify-between">
       <div className="flex items-center space-x-2">
         <span className="">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="60"
-            height="60"
-            viewBox="0 0 60 60"
-            fill="none"
-            className="h-6 w-6"
-          >
-            <path
-              d="M7.55292 6.60799C11.7279 2.62194 17.397 0.295263 23.1428 0.00590526C25.1093 0.00590526 27.0816 0.0177158 29.0481 0C28.9477 2.10818 29.0481 4.22226 28.989 6.33044C28.7115 11.0428 26.9694 15.6489 24.0345 19.3456C20.2197 24.3179 14.3853 27.6543 8.19069 28.5165C5.48608 28.9535 2.74013 28.6759 0.0178071 28.7527C0.0650492 26.432 -0.0825823 24.1053 0.100481 21.7904C0.631954 16.0505 3.34247 10.5527 7.55292 6.60799Z"
-              fill="#EDEDED"
-            />
-            <path
-              d="M30.8691 0C32.9773 0.023621 35.0855 -0.0118105 37.1996 0.0118105C42.4612 0.383842 47.6519 2.40344 51.6143 5.90526C55.9842 9.6551 58.9782 15.0171 59.7459 20.7452C60.0825 23.4025 59.8699 26.0894 59.9998 28.7586C58.1573 28.7527 56.3208 28.7468 54.4784 28.7586C49.949 28.6346 45.4965 27.1701 41.7053 24.7017C39.9573 23.4498 38.1621 22.1802 36.8512 20.444C33.9753 17.2316 32.0207 13.1983 31.2825 8.94647C30.7274 5.99384 30.9518 2.98216 30.8691 0Z"
-              fill="#EDEDED"
-            />
-            <path
-              d="M0.0218289 30.4473C1.8938 30.5536 3.77167 30.3587 5.63773 30.5654C13.6275 30.7366 21.3812 35.2246 25.5207 42.057C27.8947 45.8836 29.1702 50.4189 29.0049 54.9246C28.9989 56.4009 29.0226 57.8713 28.9812 59.3417C26.0168 59.2531 23.0228 59.4952 20.0879 58.9224C13.5685 57.8241 7.57466 53.9443 3.96654 48.4052C1.23241 44.3778 -0.131708 39.4587 0.0100184 34.5987C0.0100184 33.2109 0.0100184 31.8291 0.0218289 30.4473Z"
-              fill="#EDEDED"
-            />
-            <path
-              d="M50.0221 31.073C53.2346 30.3584 56.5475 30.4765 59.8131 30.4765L59.9548 30.6183C59.8839 33.7067 60.126 36.8306 59.506 39.8836C58.2009 46.7337 53.6657 52.8516 47.5656 56.2117C43.7685 58.3257 39.4104 59.3651 35.07 59.3178C33.6823 59.3237 32.2886 59.2942 30.9009 59.3355C30.9009 56.7786 30.7946 54.2098 31.084 51.6646C31.7572 45.5054 35.0877 39.7714 39.8769 35.8976C42.8413 33.5591 46.3254 31.8643 50.0221 31.073Z"
-              fill="#EDEDED"
-            />
-          </svg>
+          <a href="/">
+            <svg
+              width="94"
+              height="93"
+              viewBox="0 0 94 93"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+            >
+              <path
+                d="M57.4692 18C57.4692 8.05888 65.5281 0 75.4692 0C85.4104 0 93.4692 8.05888 93.4692 18C93.4692 27.9411 85.4104 36 75.4692 36C65.5281 36 57.4692 27.9411 57.4692 18Z"
+                fill="#EDEDED"
+              />
+              <path
+                d="M76.5587 43.9771V56.9305C76.5587 62.6694 76.5555 66.729 76.2921 69.9005C76.0327 73.0242 75.5417 74.9265 74.7664 76.419C73.2561 79.3265 70.8855 81.6971 67.9781 83.2074C66.4856 83.9826 64.5833 84.4736 61.4596 84.733C58.288 84.9964 54.2285 84.9996 48.4896 84.9996H36.5383C30.7995 84.9996 26.7399 84.9964 23.5683 84.733C20.4446 84.4736 18.5423 83.9826 17.0498 83.2074C14.1424 81.6971 11.7718 79.3265 10.2615 76.419C9.4862 74.9265 8.99525 73.0242 8.73584 69.9005C8.47246 66.729 8.46924 62.6694 8.46924 56.9305V44.9793C8.46924 39.2404 8.47246 35.1808 8.73584 32.0092C8.99525 28.8855 9.4862 26.9832 10.2615 25.4907C11.7718 22.5833 14.1424 20.2127 17.0498 18.7024C18.5423 17.9271 20.4446 17.4362 23.5683 17.1768C26.7399 16.9134 30.7994 16.9102 36.5383 16.9102H49.4916C49.6072 14.1061 50.1669 11.4166 51.1022 8.91016L36.3604 8.91016C30.8395 8.91012 26.4477 8.9101 22.9062 9.2042C19.2789 9.50544 16.1867 10.1358 13.362 11.6031C8.99345 13.8724 5.43147 17.4344 3.16217 21.803C1.69486 24.6276 1.06452 27.7198 0.763286 31.3471C0.46918 34.8886 0.469207 39.2804 0.469239 44.8013V57.1084C0.469207 62.6294 0.46918 67.0211 0.763286 70.5626C1.06452 74.19 1.69486 77.2821 3.16217 80.1068C5.43147 84.4754 8.99345 88.0374 13.362 90.3067C16.1867 91.774 19.2789 92.4043 22.9062 92.7055C26.4477 92.9996 30.8393 92.9996 36.3602 92.9996H48.6674C54.1882 92.9996 58.5803 92.9996 62.1217 92.7055C65.749 92.4043 68.8412 91.774 71.6659 90.3067C76.0345 88.0374 79.5965 84.4754 81.8657 80.1068C83.3331 77.2821 83.9634 74.19 84.2646 70.5626C84.5587 67.0212 84.5587 62.6295 84.5587 57.1087V42.3665C82.0523 43.3018 79.3628 43.8615 76.5587 43.9771Z"
+                fill="#EDEDED"
+              />
+            </svg>
+          </a>
         </span>
-        <span className="text-white">Simple Todo</span>
       </div>
-      <div className="space-x-6">
-        <span className="rounded-full border border-gray-light bg-[#191918] p-1.5 px-3 text-sm text-primary-white">
-          Sign up
-        </span>
-        <span className="p-1.5 text-sm text-[#707070]">Login</span>
+      <div className="">
+        <Menu as="div" className="relative inline-block text-left">
+          <div>
+            <Menu.Button className="relative mt-2 flex items-center space-x-2 rounded-full px-2 py-1 hover:bg-[#282828]">
+              <div className="relative inline-flex h-4 w-4 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-pink-500 to-yellow-500"></div>
+              <span className="text-sm text-[#707070]">{name}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-4 w-4 text-[#707070]"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                />
+              </svg>
+            </Menu.Button>
+          </div>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute right-0 z-10 mt-1.5 w-40 origin-top-right rounded-md border border-[#313635] bg-[#232323] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      href="#"
+                      className={classNames(
+                        active ? "bg-[#282828] text-white" : "text-white",
+                        "group flex items-center px-4 py-1 text-sm"
+                      )}
+                    >
+                      <PencilSquareIcon
+                        className="mr-3 h-4 w-4 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      Help
+                    </a>
+                  )}
+                </Menu.Item>
+              </div>
+
+              <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      onClick={(e) => logout(e)}
+                      href="#"
+                      className={classNames(
+                        active ? "bg-[#282828] text-white" : "text-white",
+                        "group flex items-center px-4 py-1 text-sm"
+                      )}
+                    >
+                      <TrashIcon
+                        className="mr-3 h-4 w-4 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      Log Out
+                    </a>
+                  )}
+                </Menu.Item>
+              </div>
+            </Menu.Items>
+          </Transition>
+        </Menu>
       </div>
     </div>
   );

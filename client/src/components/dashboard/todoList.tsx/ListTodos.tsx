@@ -29,21 +29,11 @@ const ListTodos = ({ todoList }: any) => {
     incompleteTodoCount,
   } = useTodoStore();
 
-  // const getTodos = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:5000/todos");
-  //     const jsonData = await response.json();
-
-  //     setTodos(jsonData);
-  //   } catch (err: any) {
-  //     console.log(err.message);
-  //   }
-  // };
-
   const deleteTodo = async (id: number) => {
     try {
-      const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {
+      await fetch(`http://localhost:5000/dashboard/todos/${id}`, {
         method: "DELETE",
+        headers: { jwt_token: localStorage.token },
       });
 
       setTodos(todos.filter((todo) => todo.todo_id !== id));
