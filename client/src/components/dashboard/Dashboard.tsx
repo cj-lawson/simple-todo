@@ -1,4 +1,4 @@
-// import TodoApp from "../dashboard/todoList.tsx/TodoApp";
+import TodoApp from "../dashboard/todoList.tsx/TodoApp";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../../provider/authProvider";
 import { useState, useEffect } from "react";
@@ -16,9 +16,8 @@ const Dashboard = () => {
 
   const [name, setName] = useState("");
   const [allTodos, setAllTodos] = useState<Todo[]>([]);
+  const [todosChange, setTodosChange] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  console.log(allTodos);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -44,7 +43,8 @@ const Dashboard = () => {
     };
 
     getProfile();
-  }, []);
+    setTodosChange(false);
+  }, [todosChange]);
 
   const logout = async (e: any) => {
     e.preventDefault();
@@ -90,20 +90,13 @@ const Dashboard = () => {
               Logout
             </button>
           </div>
-          {/* Hero */}
-          {/* <TodoApp /> */}
+          {/* Main content */}
           <h1 className="text-white">{`hey ${name}`}</h1>
           {loading ? (
             <div>Loading...</div>
           ) : (
             <>
-              <ul className="space-y-2">
-                {allTodos.map((todo: any) => (
-                  <div>
-                    <li key={todo.todo_id}>{todo.description}</li>
-                  </div>
-                ))}
-              </ul>
+              <TodoApp todoList={allTodos} setTodosChange={setTodosChange} />
             </>
           )}
         </div>

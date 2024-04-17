@@ -14,10 +14,12 @@ const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const ListTodos = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+const ListTodos = ({ todoList }: any) => {
+  const [todos, setTodos] = useState<Todo[]>(todoList);
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
   const [incompleteTodos, setIncompleteTodos] = useState<Todo[]>([]);
+
+  console.log(todos);
 
   //Zustand store
   const {
@@ -27,16 +29,16 @@ const ListTodos = () => {
     incompleteTodoCount,
   } = useTodoStore();
 
-  const getTodos = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/todos");
-      const jsonData = await response.json();
+  // const getTodos = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:5000/todos");
+  //     const jsonData = await response.json();
 
-      setTodos(jsonData);
-    } catch (err: any) {
-      console.log(err.message);
-    }
-  };
+  //     setTodos(jsonData);
+  //   } catch (err: any) {
+  //     console.log(err.message);
+  //   }
+  // };
 
   const deleteTodo = async (id: number) => {
     try {
@@ -59,16 +61,20 @@ const ListTodos = () => {
       });
 
       if (completeTodo.ok) {
-        getTodos();
+        // getTodos();
       }
     } catch (err: any) {
       console.error(err.message);
     }
   };
 
+  // useEffect(() => {
+  //   getTodos();
+  // }, []);
+
   useEffect(() => {
-    getTodos();
-  }, []);
+    setTodos(todoList);
+  }, [todoList]);
 
   useEffect(() => {
     const completed = todos.filter((todo) => todo.completed);

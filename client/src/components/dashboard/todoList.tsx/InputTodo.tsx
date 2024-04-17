@@ -4,19 +4,29 @@ const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const InputTodo = () => {
+const InputTodo = ({ setTodosChange }: any) => {
   const [description, setDescription] = useState<string>("");
 
   const onFormSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
+      const myHeaders = new Headers();
+
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("jwt_token", localStorage.token);
+
       const body = { description };
-      const response = await fetch("http://localhost:5000/todos", {
+      const response = await fetch("http://localhost:5000/dashboard/todos", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(body),
       });
+
+      const parseResponse = await response.json();
+
+      setTodosChange(true);
+      setDescription("");
       window.location.href = "/";
     } catch (err: any) {
       console.error(err.message);
