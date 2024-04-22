@@ -14,7 +14,7 @@ const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(" ");
 };
 
-const ListTodos = ({ todoList }: any) => {
+const ListTodos = ({ todoList, setTodoChange }: any) => {
   const [todos, setTodos] = useState<Todo[]>(todoList);
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
   const [incompleteTodos, setIncompleteTodos] = useState<Todo[]>([]);
@@ -44,15 +44,30 @@ const ListTodos = ({ todoList }: any) => {
 
   const completeTodo = async (id: number, description: string) => {
     try {
-      const completeTodo = await fetch(`http://localhost:5000/todos/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ description, completed: true }),
-      });
+      const myHeaders = new Headers();
 
-      if (completeTodo.ok) {
-        // getTodos();
-      }
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("jwt_token", localStorage.token);
+
+      const body = { description, completed: true };
+
+      const completeTodo = await fetch(
+        `http://localhost:5000/dashboard/todos/${id}`,
+        {
+          method: "PUT",
+          headers: myHeaders,
+          body: JSON.stringify(body),
+        }
+      );
+
+      const parseResponse = await completeTodo.json();
+
+      setTodoChange(true);
+      window.location.href = "/";
+
+      // if (completeTodo.ok) {
+      //   // getTodos();
+      // }
     } catch (err: any) {
       console.error(err.message);
     }

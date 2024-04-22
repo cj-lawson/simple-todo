@@ -39,10 +39,10 @@ router.post("/todos", authorize, async (req, res) => {
 router.put("/todos/:id", authorize, async (req, res) => {
   try {
     const { id } = req.params;
-    const { description } = req.body;
+    const { description, completed } = req.body;
     const updateTodo = await pool.query(
-      "UPDATE todo SET description = $1 WHERE todo_id = $2 AND user_id = $3 RETURNING *",
-      [description, id, req.user.id]
+      "UPDATE todo SET description = $1, completed = $2 WHERE todo_id = $3 AND user_id = $4 RETURNING *",
+      [description, completed, id, req.user.id]
     );
 
     if (updateTodo.rows.length === 0) {
