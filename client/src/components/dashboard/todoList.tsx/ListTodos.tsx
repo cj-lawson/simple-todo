@@ -64,10 +64,6 @@ const ListTodos = ({ todoList, setTodoChange }: any) => {
 
       setTodoChange(true);
       window.location.href = "/";
-
-      // if (completeTodo.ok) {
-      //   // getTodos();
-      // }
     } catch (err: any) {
       console.error(err.message);
     }

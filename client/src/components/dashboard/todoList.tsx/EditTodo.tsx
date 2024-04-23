@@ -15,12 +15,20 @@ export default function EditTodo({ id, todoDescription, completed }: Props) {
   const updateDescription = async (e: any) => {
     e.preventDefault();
     try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("jwt_token", localStorage.token);
+
       const body = { description, completed };
-      const response = await fetch(`http://localhost:5000/todos/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+
+      const response = await fetch(
+        `http://localhost:5000/dashboard/todos/${id}`,
+        {
+          method: "PUT",
+          headers: myHeaders,
+          body: JSON.stringify(body),
+        }
+      );
       console.log(response);
       window.location.href = "/";
     } catch (err: any) {
