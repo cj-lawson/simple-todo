@@ -40,34 +40,10 @@ const AccountSettings = () => {
           <div className="border-b border-[#3e3e3e] pb-6">
             <h2 className="text-lg font-medium">Account settings</h2>
             <p className="text-sm text-[#a0a0a0]">
-              Not a lot here yet. Update your username or delete your account
+              Update your username, download your data or delete your account
             </p>
           </div>
           <div className="space-y-8">
-            {/* download csv */}
-            <div className="mt-4 space-x-2">
-              <form className="flex h-full flex-row items-end justify-between space-y-4 border-b border-[#3e3e3e] pb-6">
-                <div className="w-full">
-                  <div className="mt-2">
-                    <h3 className="text-md font-medium text-[#ededed]">
-                      Download your data
-                    </h3>
-                    <p className="text-sm text-[#a0a0a0]">
-                      Download a csv file of all of your data
-                    </p>
-                  </div>
-                </div>
-
-                <div className="ml-[5%]">
-                  <button
-                    type="submit"
-                    className="flex w-full rounded-md border border-[#3e3e3e] bg-[#2e2e2e] px-3 py-1.5 align-bottom text-sm font-semibold leading-6 text-primary-white shadow-sm hover:brightness-125"
-                  >
-                    Download
-                  </button>
-                </div>
-              </form>
-            </div>
             <div className="mt-4 space-x-2">
               {/* udpate username */}
               <form className="flex h-full flex-row items-end justify-between space-y-4 border-b border-[#3e3e3e] pb-6">
@@ -94,6 +70,31 @@ const AccountSettings = () => {
                     className="flex w-full text-nowrap rounded-md border border-[#3e3e3e] bg-[#2e2e2e] px-3 py-1.5  text-sm font-semibold leading-6 text-primary-white shadow-sm hover:brightness-125"
                   >
                     Update username
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* download csv */}
+            <div className="mt-4 space-x-2">
+              <form className="flex h-full flex-row items-end justify-between space-y-4 border-b border-[#3e3e3e] pb-6">
+                <div className="w-full">
+                  <div className="mt-2">
+                    <h3 className="text-md font-medium text-[#ededed]">
+                      Download your data
+                    </h3>
+                    <p className="text-sm text-[#a0a0a0]">
+                      Download a csv file of all of your data
+                    </p>
+                  </div>
+                </div>
+
+                <div className="ml-[5%]">
+                  <button
+                    type="submit"
+                    className="flex w-full text-nowrap rounded-md border border-[#3e3e3e] bg-[#2e2e2e] px-3 py-1.5 align-bottom text-sm font-semibold leading-6 text-primary-white shadow-sm hover:brightness-125"
+                  >
+                    Download data
                   </button>
                 </div>
               </form>

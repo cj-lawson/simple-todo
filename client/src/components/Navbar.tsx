@@ -3,7 +3,11 @@ import { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../provider/authProvider";
 import { Menu, Transition } from "@headlessui/react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid";
+import {
+  PencilSquareIcon,
+  TrashIcon,
+  Cog6ToothIcon,
+} from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import useTodoStore from "../store/useTodoStore";
 
@@ -110,6 +114,26 @@ export default function Navbar() {
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
+                    <Link
+                      // onClick={(e) => deleteAccount(e)}
+                      to="/settings"
+                      className={classNames(
+                        active ? "bg-[#282828] text-white" : "text-white",
+                        "group flex items-center px-4 py-1 text-sm"
+                      )}
+                    >
+                      <Cog6ToothIcon
+                        className="mr-3 h-4 w-4 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      Settings
+                    </Link>
+                  )}
+                </Menu.Item>
+              </div>
+              <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
                     <a
                       onClick={(e) => logout(e)}
                       href="#"
@@ -124,26 +148,6 @@ export default function Navbar() {
                       />
                       Log Out
                     </a>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <Link
-                      // onClick={(e) => deleteAccount(e)}
-                      to="/settings"
-                      className={classNames(
-                        active ? "bg-[#282828] text-white" : "text-white",
-                        "group flex items-center px-4 py-1 text-sm"
-                      )}
-                    >
-                      <TrashIcon
-                        className="mr-3 h-4 w-4 text-gray-400 group-hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                      Settings
-                    </Link>
                   )}
                 </Menu.Item>
               </div>
