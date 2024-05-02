@@ -6,6 +6,7 @@ import Landing from "./landing";
 import Register from "./auth/register";
 import Login from "./auth/login";
 import Dashboard from "../components/dashboard/Dashboard";
+import AccountSettings from "./accountSettings";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -33,6 +34,10 @@ const Routes = () => {
         {
           path: "/",
           element: <Dashboard />,
+        },
+        {
+          path: "/settings",
+          element: <AccountSettings />,
         },
       ],
     },

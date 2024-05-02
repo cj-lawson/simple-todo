@@ -27,6 +27,7 @@ const ListTodos = ({ todoList, setTodoChange }: any) => {
     setIncompleteTodoCount,
     completeTodoCount,
     incompleteTodoCount,
+    setUserName,
   } = useTodoStore();
 
   const deleteTodo = async (id: number) => {
@@ -82,8 +83,6 @@ const ListTodos = ({ todoList, setTodoChange }: any) => {
     setCompleteTodoCount(completed.length);
     setIncompleteTodoCount(incomplete.length);
   }, [todos]);
-
-  // console.log(todos);
 
   return (
     <div className="pb-20">

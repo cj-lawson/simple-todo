@@ -74,4 +74,20 @@ router.delete("/todos/:id", authorize, async (req, res) => {
   }
 });
 
+// Delete user account
+router.delete("/account", authorize, async (req, res) => {
+  try {
+    // delete user's todos first
+    await pool.query("DELETE FROM todo WHERE user_id = $1", [req.user.id]);
+
+    // Then delete user account
+    await pool.query("DELETE FROM users WHERE user_id = $1", [req.user.id]);
+
+    res.json("Account has been deleted");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("server error");
+  }
+});
+
 export default router;

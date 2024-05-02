@@ -3,16 +3,7 @@ import { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../provider/authProvider";
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ArchiveBoxIcon,
-  ArrowRightCircleIcon,
-  ChevronDownIcon,
-  DocumentDuplicateIcon,
-  HeartIcon,
-  PencilSquareIcon,
-  TrashIcon,
-  UserPlusIcon,
-} from "@heroicons/react/20/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -26,6 +17,22 @@ export default function Navbar({ name }: any) {
   const logout = async (e: any) => {
     e.preventDefault();
     try {
+      localStorage.removeItem("token");
+      setToken("");
+      navigate("/home", { replace: true });
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
+  const deleteAccount = async (e: any) => {
+    e.preventDefault();
+    try {
+      await fetch(`http://localhost:5000/dashboard/account`, {
+        method: "DELETE",
+        headers: { jwt_token: localStorage.token },
+      });
+
       localStorage.removeItem("token");
       setToken("");
       navigate("/home", { replace: true });
@@ -127,6 +134,26 @@ export default function Navbar({ name }: any) {
                         aria-hidden="true"
                       />
                       Log Out
+                    </a>
+                  )}
+                </Menu.Item>
+              </div>
+              <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      onClick={(e) => deleteAccount(e)}
+                      href="#"
+                      className={classNames(
+                        active ? "bg-[#282828] text-white" : "text-white",
+                        "group flex items-center px-4 py-1 text-sm"
+                      )}
+                    >
+                      <TrashIcon
+                        className="mr-3 h-4 w-4 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      Delete Account
                     </a>
                   )}
                 </Menu.Item>
