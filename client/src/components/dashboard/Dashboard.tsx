@@ -18,7 +18,7 @@ const Dashboard = () => {
   const { setToken } = useAuth();
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
+  const [name_, setName] = useState();
   const [allTodos, setAllTodos] = useState<Todo[]>([]);
   const [todosChange, setTodosChange] = useState(false);
 
@@ -41,7 +41,6 @@ const Dashboard = () => {
 
         setAllTodos(parseData);
         let userName_ = parseData[0]?.user_name || "";
-        // setName(userName_); // Set name from first todo user_name
         setUserName(userName_);
       } catch (err: any) {
         console.error(err.message);
@@ -59,7 +58,7 @@ const Dashboard = () => {
     <div className="flex w-full flex-col justify-center bg-[#1c1c1c]">
       <div className="mb-12 mt-2 flex w-full justify-center">
         <div className="w-5/6 md:mx-8 md:w-full">
-          <Navbar name={userName} />
+          <Navbar />
         </div>
       </div>
       <div className="flex justify-center pt-10 text-primary-white">

@@ -4,35 +4,24 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../provider/authProvider";
 import { Menu, Transition } from "@headlessui/react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { Link } from "react-router-dom";
+import useTodoStore from "../store/useTodoStore";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar({ name }: any) {
-  const [name_, setName] = useState(name);
+export default function Navbar() {
+  // const [name_, setName] = useState(name);
   const { setToken } = useAuth();
   const navigate = useNavigate();
+
+  //Zustand store
+  const { userName } = useTodoStore();
 
   const logout = async (e: any) => {
     e.preventDefault();
     try {
-      localStorage.removeItem("token");
-      setToken("");
-      navigate("/home", { replace: true });
-    } catch (err: any) {
-      console.error(err.message);
-    }
-  };
-
-  const deleteAccount = async (e: any) => {
-    e.preventDefault();
-    try {
-      await fetch(`http://localhost:5000/dashboard/account`, {
-        method: "DELETE",
-        headers: { jwt_token: localStorage.token },
-      });
-
       localStorage.removeItem("token");
       setToken("");
       navigate("/home", { replace: true });
@@ -71,7 +60,7 @@ export default function Navbar({ name }: any) {
           <div>
             <Menu.Button className="relative mt-2 flex items-center space-x-2 rounded-full px-2 py-1 hover:bg-[#282828]">
               <div className="relative inline-flex h-4 w-4 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-pink-500 to-yellow-500"></div>
-              <span className="text-sm text-[#707070]">{name}</span>
+              <span className="text-sm text-[#707070]">{userName}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -141,9 +130,9 @@ export default function Navbar({ name }: any) {
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      onClick={(e) => deleteAccount(e)}
-                      href="#"
+                    <Link
+                      // onClick={(e) => deleteAccount(e)}
+                      to="/settings"
                       className={classNames(
                         active ? "bg-[#282828] text-white" : "text-white",
                         "group flex items-center px-4 py-1 text-sm"
@@ -153,8 +142,8 @@ export default function Navbar({ name }: any) {
                         className="mr-3 h-4 w-4 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      Delete Account
-                    </a>
+                      Settings
+                    </Link>
                   )}
                 </Menu.Item>
               </div>
