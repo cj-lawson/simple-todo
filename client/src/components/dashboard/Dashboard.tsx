@@ -63,6 +63,7 @@ const Dashboard = () => {
       </div>
       <div className="flex justify-center pt-10 text-primary-white">
         <div className="container flex w-5/6 max-w-[590px] flex-col space-y-12 md:w-3/5">
+          <h1 className="text-center text-[#707070]">Welcome, {userName}</h1>
           <TodoApp todoList={allTodos} setTodosChange={setTodosChange} />
         </div>
       </div>

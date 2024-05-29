@@ -17,6 +17,7 @@
     "axios": "^1.6.8",
     "jsonwebtoken": "^9.0.2",
     "react": "^18.2.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "sonner": "^1.4.41",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.73",
+    "@types/react-csv": "^1.1.10",
     "@types/react-dom": "^18.2.23",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.2.1",

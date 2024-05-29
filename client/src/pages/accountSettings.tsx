@@ -1,16 +1,17 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../provider/authProvider";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useTodoStore from "../store/useTodoStore";
-
-// components
+import { CSVLink } from "react-csv";
 import Navbar from "../components/Navbar";
 
 const AccountSettings = () => {
   const { setToken } = useAuth();
   const navigate = useNavigate();
-  //Zustand store
+  const [userData, setUserData] = useState([]);
   const { userName } = useTodoStore();
+
+  const csvLink = useRef<any>(null);
 
   const deleteAccount = async (e: any) => {
     e.preventDefault();
@@ -25,6 +26,32 @@ const AccountSettings = () => {
       navigate("/home", { replace: true });
     } catch (err: any) {
       console.error(err.message);
+    }
+  };
+
+  const getUserData = async (e: any) => {
+    e.preventDefault();
+    try {
+      console.log("download button pushed");
+      const res = await fetch("http://localhost:5000/dashboard/", {
+        method: "GET",
+        headers: { jwt_Token: localStorage.token },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const parseData = await res.json();
+
+      setUserData(parseData);
+      console.log(parseData);
+    } catch (err: any) {
+      console.error(err.message);
+    }
+
+    if (csvLink.current) {
+      csvLink.current.link.click();
     }
   };
 
@@ -92,10 +119,18 @@ const AccountSettings = () => {
                 <div className="ml-[5%]">
                   <button
                     type="submit"
+                    onClick={(e) => getUserData(e)}
                     className="flex w-full text-nowrap rounded-md border border-[#3e3e3e] bg-[#2e2e2e] px-3 py-1.5 align-bottom text-sm font-semibold leading-6 text-primary-white shadow-sm hover:brightness-125"
                   >
                     Download data
                   </button>
+                  <CSVLink
+                    data={userData}
+                    filename="todoList.csv"
+                    className="h-full w-full"
+                    ref={csvLink}
+                    target="_blank"
+                  ></CSVLink>
                 </div>
               </form>
             </div>
